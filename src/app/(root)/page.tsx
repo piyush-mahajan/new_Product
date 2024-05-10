@@ -1,9 +1,7 @@
-const Home = () => {
-  return (
-    <div>
-      <p>Home</p>
-    </div>
-  );
+import React from "react";
+
+const page = () => {
+  return <div>Home </div>;
 };
 
-export default Home;
+export default page;
