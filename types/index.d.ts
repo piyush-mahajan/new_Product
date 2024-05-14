@@ -126,7 +126,6 @@ declare type TransformationFormProps = {
   data?: IImage | null;
   config?: Transformations | null;
 };
-
 declare type TransformedImageProps = {
   image: any;
   type: string;
