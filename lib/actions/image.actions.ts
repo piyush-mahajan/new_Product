@@ -6,7 +6,9 @@ import { handleError } from "../utils";
 import User from "../database/models/user.model";
 import Image from "../database/models/image.model";
 import { redirect } from "next/navigation";
+
 import { v2 as cloudinary } from "cloudinary";
+
 const populateUser = (query: any) =>
   query.populate({
     path: "author",
@@ -62,6 +64,7 @@ export async function updateImage({ image, userId, path }: UpdateImageParams) {
     handleError(error);
   }
 }
+
 // DELETE IMAGE
 export async function deleteImage(imageId: string) {
   try {
@@ -74,6 +77,7 @@ export async function deleteImage(imageId: string) {
     redirect("/");
   }
 }
+
 // GET IMAGE
 export async function getImageById(imageId: string) {
   try {
@@ -88,7 +92,8 @@ export async function getImageById(imageId: string) {
     handleError(error);
   }
 }
-// get images
+
+// GET IMAGES
 export async function getAllImages({
   limit = 9,
   page = 1,
@@ -108,7 +113,7 @@ export async function getAllImages({
       secure: true,
     });
 
-    let expression = "folder=mahaproject";
+    let expression = "folder=imaginify";
 
     if (searchQuery) {
       expression += ` AND ${searchQuery}`;
@@ -144,6 +149,37 @@ export async function getAllImages({
       data: JSON.parse(JSON.stringify(images)),
       totalPage: Math.ceil(totalImages / limit),
       savedImages,
+    };
+  } catch (error) {
+    handleError(error);
+  }
+}
+
+// GET IMAGES BY USER
+export async function getUserImages({
+  limit = 9,
+  page = 1,
+  userId,
+}: {
+  limit?: number;
+  page: number;
+  userId: string;
+}) {
+  try {
+    await connectToDatabase();
+
+    const skipAmount = (Number(page) - 1) * limit;
+
+    const images = await populateUser(Image.find({ author: userId }))
+      .sort({ updatedAt: -1 })
+      .skip(skipAmount)
+      .limit(limit);
+
+    const totalImages = await Image.find({ author: userId }).countDocuments();
+
+    return {
+      data: JSON.parse(JSON.stringify(images)),
+      totalPages: Math.ceil(totalImages / limit),
     };
   } catch (error) {
     handleError(error);
