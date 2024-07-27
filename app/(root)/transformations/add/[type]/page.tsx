@@ -13,22 +13,38 @@ const AddTransformationTypePage = async ({
 
   if (!userId) redirect("/sign-in");
 
-  const user = await getUserById(userId);
+  try {
+    const user = await getUserById(userId);
 
-  return (
-    <>
-      <Header title={transformation.title} subtitle={transformation.subTitle} />
+    if (!user) {
+      console.error("User not found");
+      // Handle the case where the user is not found
+      // You might want to redirect to an error page or show a message
+      return <div>User not found. Please try logging in again.</div>;
+    }
 
-      <section className="mt-10">
-        <TransformationForm
-          action="Add"
-          userId={user._id}
-          type={transformation.type as TransformationTypeKey}
-          creditBalance={user.creditBalance}
+    return (
+      <>
+        <Header
+          title={transformation.title}
+          subtitle={transformation.subTitle}
         />
-      </section>
-    </>
-  );
+
+        <section className="mt-10">
+          <TransformationForm
+            action="Add"
+            userId={user._id}
+            type={transformation.type as TransformationTypeKey}
+            creditBalance={user.creditBalance}
+          />
+        </section>
+      </>
+    );
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    // Handle any other errors that might occur
+    return <div>An error occurred. Please try again later.</div>;
+  }
 };
 
 export default AddTransformationTypePage;
