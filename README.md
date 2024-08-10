@@ -1,20 +1,10 @@
 # Maha Create - AI Image SaaS Platform
 
-Build this project step by step with our detailed tutorial on **JavaScript Mastery** YouTube. Join the JSM family!
-
 ## 📋 Table of Contents
 1. [🤖 Introduction](#-introduction)
 2. [⚙️ Tech Stack](#️-tech-stack)
 3. [🔋 Features](#-features)
 4. [🤸 Quick Start](#-quick-start)
-5. [🕸️ Snippets](#️-snippets)
-6. [🔗 Links](#-links)
-7. [🚀 More](#-more)
-
-## 🚨 Tutorial
-This repository contains the code corresponding to an in-depth tutorial available on our YouTube channel, **JavaScript Mastery**.
-
-If you prefer visual learning, this is the perfect resource for you. Follow our tutorial to learn how to build projects like these step-by-step in a beginner-friendly manner!
 
 ## 🤖 Introduction
 Maha Create is an AI image SaaS platform that excels in image processing capabilities, integrates a secure payment infrastructure, offers advanced image search functionalities, and supports multiple AI features, including image restoration, recoloring, object removal, generative filling, and background removal. This project can be a guide for your next AI image tool and a boost to your portfolio.
